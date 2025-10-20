@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<base target="_top">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>Quick Start - Leaflet</title>
+	
+	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+
+  <style>
+    #map {
+      height: 100vh;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="map"></div>
+
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <script>
+   
+    var map = L.map('map').setView([33.976578689303324, -6.867094659926391], 17);
+
+
+    var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '© OpenStreetMap contributors'
+    });
+
+    var satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/' +
+      'World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+      attribution: 'Tiles © Esri'
+    });
+
+    
+    osm.addTo(map);
+
+    
+    var baseMaps = {
+      "OpenStreetMap": osm,
+      "Satellite": satellite
+    };
+    L.control.layers(baseMaps).addTo(map);
+
+    const circle = L.circle([33.976578689303324, -6.867094659926391], {
+		color: 'red',
+		fillColor: '#f03',
+		fillOpacity: 0.5,
+		radius: 20
+	}).addTo(map).bindPopup('I am a circle.');
+ 
+    var marker = L.marker([33.976578689303324, -6.867094659926391])
+      .addTo(map)
+      .bindPopup("<b>You are here</b>")
+      .openPopup();
+
+     
+var parkingIcon = L.icon({
+    iconUrl: 'images/parking.png',
+    iconSize: [25, 25],
+    iconAnchor: [12, 25],
+    popupAnchor: [0, -25]
+});
+
+L.marker([33.97639144092958, -6.866301312370772], { icon: parkingIcon })
+  .addTo(map)
+  .bindPopup("This is a parking")
+  .openPopup(); 
+
+L.marker([33.977183009567796, -6.867340815323188], { icon: parkingIcon })
+  .addTo(map)
+  .bindPopup("This is a parking"); 
+
+
+var restaurantIcon = L.icon({
+    iconUrl: 'images/restaurant.png',
+    iconSize: [25, 25],
+    iconAnchor: [12, 25],
+    popupAnchor: [0, -25]
+});
+
+L.marker([33.976163500949134, -6.868895072134137], { icon: restaurantIcon })
+  .addTo(map)
+  .bindPopup("This is a Harka restaurant"); 
+
+
+var coffeeIcon = L.icon({
+    iconUrl: 'images/cafe.png',  
+    iconSize: [30, 30],
+    iconAnchor: [15, 30],
+    popupAnchor: [0, -30]
+});
+
+L.marker([33.9773073390535, -6.866601168991782], { icon: coffeeIcon })
+  .addTo(map)
+  .bindPopup(`
+    <div style="display:flex; align-items:center;">
+      <img src="images/cafe.png" width="40" style="margin-right:10px;">
+      <span style="font-weight:bold;">This is a cafe</span>
+    </div>
+  `)
+  .openPopup(); 
+
+
+    var polygon1Points = [
+      [33.975225535365794, -6.867137780831687],
+      [33.974946394276735, -6.866622567111248],
+      [33.97453052932195, -6.866948869134193],
+      [33.97488942659494, -6.867457213338359]
+    ];
+
+ var polygon2Points = [
+      [33.977635033039995, -6.867139096121336],
+      [33.97661553871271, -6.866398492840658],
+      [33.975804847750844, -6.867094659924494],
+      [33.976603255573984, -6.868136441872647]
+    ];
+
+    var polygon3Points = [
+     [33.97737178502332, -6.866102578349564],
+    [33.97716153788515, -6.865884991450767 ],  
+    [33.97729647267538, -6.865695785451813],
+     [33.977509857487945, -6.865886883510757]
+    ];
+
+    var polygon1 = L.polygon(polygon1Points, {
+      color: 'blue',
+      fillColor: 'rgba(0, 0, 255, 0.3)',
+      weight: 2
+    }).addTo(map);
+    polygon1.bindPopup("C'est grand amphi agro ");
+
+     var polygon2 = L.polygon(polygon2Points, {
+      color: 'blue',
+      fillColor: 'rgba(0, 0, 255, 0.3)',
+      weight: 2
+    }).addTo(map);
+    polygon2.bindPopup("C'est le département TOPO")
+
+       var polygon3 = L.polygon(polygon3Points, {
+      color: 'blue',
+      fillColor: 'rgba(0, 0, 255, 0.3)',
+      weight: 2
+    }).addTo(map);
+    polygon3.bindPopup("C'est le département génie rural");
+
+
+
+  </script>
+</body>
+</html>
